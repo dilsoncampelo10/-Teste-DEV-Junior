@@ -16,4 +16,6 @@ class Customer extends Model
         'birthdate',
         'cpf',
     ];
+
+    protected $guarded = [];
 }

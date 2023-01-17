@@ -28,9 +28,36 @@ class CustomerController extends Controller
                 'cpf' => $cpf,
             ]);
 
-            return redirect()->route('home')->with('success','Cliente cadastrado com sucesso');
+            return redirect()->route('show.customers')->with('success','Cliente cadastrado com sucesso');
         }
 
         return redirect()->route('insert.customer')->with('failed','Não foi possível cadastrar cliente');
+    }
+
+    public function show(){
+        $customers = Customer::all();
+        $data = [
+            'customers' => $customers
+        ];
+        return view('show',$data);
+    }
+
+    public function edit($id){
+        $customer = Customer::find($id);
+        $data = [
+            'customer'=>$customer
+        ];
+        return view('edit_customer',$data);
+    } 
+    public function update(Request $request){
+        Customer::findOrFail($request->id)->update($request->all());
+
+        return redirect()->route('show.customer');
+    }
+
+    public function destroy($id){
+        Customer::findOrFail($id)->delete();
+
+        return redirect()->route('show.customers');
     }
 }

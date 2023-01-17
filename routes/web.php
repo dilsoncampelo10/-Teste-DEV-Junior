@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::get('/inserir/cliente',[CustomerController::class,'index'])->name('insert.customer');
+Route::post('/inserir/cliente',[CustomerController::class,'store'])->name('save.customer');

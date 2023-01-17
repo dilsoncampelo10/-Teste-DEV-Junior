@@ -2,5 +2,6 @@
 @section('title','Home')
 
 @section('content')
-    <a href="">Cadastrar clientes</a>
+    <a href="{{route('insert.customer')}}">Cadastrar clientes</a>
+
 @endsection

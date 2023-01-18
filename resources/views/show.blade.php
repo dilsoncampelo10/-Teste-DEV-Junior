@@ -3,36 +3,39 @@
 
 @section('content')
 
-<table>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Endereço</th>
-            <th>Data de nascimento</th>
-            <th>CPF</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($customers as $customer)
+<div class="container mt-3">
+    <h1>Clientes cadastrados</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Data de nascimento</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($customers as $customer)
             <tr>
                 <td>{{$customer->name}}</td>
                 <td>{{$customer->phone}}</td>
                 <td>{{$customer->address}}</td>
-                <td>{{$customer->birthdate}}</td>
+                <td>{{date('d/m/Y',strtotime($customer->birthdate))}}</td>
                 <td>{{$customer->cpf}}</td>
-                <td>
-                    <a href="{{route('edit.customer',['id'=>$customer->id])}}">Editar</a>
+                <td class="d-flex">
+                    <a href="{{route('edit.customer',['id'=>$customer->id])}}" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                     <form action="{{route('delete.customer',['id'=>$customer->id])}}" method="post">
                         @csrf
                         @method("delete")
-                        <button type="submit">Deletar</button>
+                        <button type="submit" class="btn btn-danger ms-2" onclick="return confirm('Deseja excluir?')"><i class="fa-solid fa-trash"></i> Deletar</button>
                     </form>
                 </td>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
 @endsection

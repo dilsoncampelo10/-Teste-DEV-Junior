@@ -8,18 +8,20 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('insert_customer');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $name = $request->name;
         $phone = $request->phone;
         $address = $request->address;
         $birthdate = $request->birthdate;
         $cpf = $request->cpf;
 
-        if($name && $phone && $address && $birthdate && $cpf){
+        if ($name && $phone && $address && $birthdate && $cpf) {
             Customer::create([
                 'name' => $name,
                 'phone' => $phone,
@@ -28,36 +30,40 @@ class CustomerController extends Controller
                 'cpf' => $cpf,
             ]);
 
-            return redirect()->route('show.customers')->with('success','Cliente cadastrado com sucesso');
+            return redirect()->route('show.customers')->with('success', 'Cliente cadastrado com sucesso');
         }
 
-        return redirect()->route('insert.customer')->with('failed','Não foi possível cadastrar cliente');
+        return redirect()->route('insert.customer')->with('failed', 'Não foi possível cadastrar cliente');
     }
 
-    public function show(){
+    public function show()
+    {
         $customers = Customer::all();
         $data = [
             'customers' => $customers
         ];
-        return view('show',$data);
+        return view('show', $data);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $customer = Customer::find($id);
         $data = [
-            'customer'=>$customer
+            'customer' => $customer
         ];
-        return view('edit_customer',$data);
-    } 
-    public function update(Request $request){
+        return view('edit_customer', $data);
+    }
+    public function update(Request $request)
+    {
         Customer::findOrFail($request->id)->update($request->all());
 
-        return redirect()->route('show.customer');
+        return redirect()->route('show.customers')->with('success', 'Cliente alterado');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         Customer::findOrFail($id)->delete();
 
-        return redirect()->route('show.customers');
+        return redirect()->route('show.customers')->with('success', 'Cliente excluído');
     }
 }

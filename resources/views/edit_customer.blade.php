@@ -1,5 +1,5 @@
 @extends('templates/main')
-@section('title','Home')
+@section('title','Editar cliente')
 
 @section('content')
 

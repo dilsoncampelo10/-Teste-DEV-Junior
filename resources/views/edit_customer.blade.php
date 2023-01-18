@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="container">
-    <h1>+ Editar clientes</h1>
+    <h1>+ Editar cliente</h1>
     <hr>
     <form action="{{route('udpate.customer')}}" method="post">
         @csrf
